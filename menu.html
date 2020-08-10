@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Menu</title>
+	<style>
+			ul {
+					list-style: none;
+					padding-left:0;
+			}
+			body {
+					white-space:nowrap;
+			}
+	</style>
+</head>
+<body>
+	<h4>MediaFire Auto-Download Options</h4>
+	<ul>
+		<li><input type="checkbox" id="msfad_enabled" class="checkbox"><label for="msfad_enabled">Enable MediaFire Auto-Download</label></li>
+		<li><input type="checkbox" id="auto_close" class="checkbox"><label for="auto_close">Automatically close tab after downloading</label></li>
+	</ul>
+	<script>
+		// Mostly taken from https://github.com./alextrv/enhanced-h264ify/ and slightly modified
+		//  Copyright (c) 2019 alextrv; Copyright (c) 2015 erkserkserks
+
+		// Saves options to chrome.storage
+		function save_options() {
+			let msfad_enabled = document.getElementById("msfad_enabled").checked;
+			let auto_close = document.getElementById("auto_close").checked;
+			chrome.storage.local.set({
+				msfad_enabled: msfad_enabled,
+				auto_close: auto_close
+			});
+		}
+
+		// Restores checkbox state using the options stored in chrome.storage.
+		function restore_options() {
+			// Default values
+			chrome.storage.local.get({
+				msfad_enabled: true,
+				auto_close: false
+			}, function(options) {
+				document.getElementById("msfad_enabled").checked = options.msfad_enabled;
+				document.getElementById("auto_close").checked = options.auto_close;
+			});
+		}
+
+		// Restore saved options when extension is loaded
+		document.addEventListener("DOMContentLoaded", restore_options);
+
+		// Save options when checkboxes are clicked
+		var checkboxes = document.getElementsByClassName("checkbox");
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].addEventListener("click", save_options)
+		}
+		// End Copyright
+	</script>
+</body>
+</html>

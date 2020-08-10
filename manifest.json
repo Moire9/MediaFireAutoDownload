@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "MediaFire Auto-Download",
+  "version": "1.0",
+  "description": "Automatically clicks \"Download\" for MediaFire pages, and optionally closes the tab.",
+  "homepage": "https://github.com/SirNapkin1334/MediaFireAutoDownload",
+
+  "icons": {
+    "48": "mfad-96.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://www.mediafire.com/file/*"],
+      "js": ["click_download.js"]
+    }
+  ]
+}
